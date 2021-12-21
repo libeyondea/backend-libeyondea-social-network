@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\CommentLikeController;
 use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\PostLikeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,9 +33,15 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('posts/{slug}', [PostController::class, 'update']);
     Route::delete('posts/{slug}', [PostController::class, 'destroy']);
 
+    Route::post('posts/{slug}/like', [PostLikeController::class, 'like']);
+    Route::delete('posts/{slug}/unlike', [PostLikeController::class, 'unlike']);
+
     Route::get('posts/{slug}/comments', [CommentController::class, 'index']);
     Route::post('posts/{slug}/comments', [CommentController::class, 'store']);
     Route::delete('comments/{slug}', [CommentController::class, 'destroy']);
+
+    Route::post('comments/{slug}/like', [CommentLikeController::class, 'like']);
+    Route::delete('comments/{slug}/unlike', [CommentLikeController::class, 'unlike']);
 
     Route::post('users/{user_name}/follow', [FollowerController::class, 'follow']);
     Route::delete('users/{user_name}/unfollow', [FollowerController::class, 'unfollow']);

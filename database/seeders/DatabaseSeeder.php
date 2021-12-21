@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\PostLike;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,6 +20,8 @@ class DatabaseSeeder extends Seeder
             ImageSeeder::class,
             CommentSeeder::class,
             FollowerSeeder::class,
+            PostLikeSeeder::class,
+            CommentLikeSeeder::class,
         ]);
     }
 }
