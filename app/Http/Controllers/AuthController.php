@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SignupRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class AuthController extends Controller
         $credentials = $request->only(['user_name', 'password']);
 
         if (!auth()->attempt($credentials)) {
-            return $this->respondBadRequest('Incorrect username or password');
+            return $this->respondUnprocessableEntity('Incorrect username or password');
         }
 
         $tokenResult = auth()->user()->createToken('Personal Access Token');
@@ -27,6 +28,18 @@ class AuthController extends Controller
             'token_type' => 'Bearer',
             'expires_at' => Carbon::parse($tokenResult->accessToken->created_at)->addMinutes(config('sanctum.expiration'))
         ]);
+    }
+
+    public function signup(SignupRequest $request)
+    {
+        $user = User::create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'user_name' => $request->user_name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+        ]);
+        return $this->respondSuccess($user);
     }
 
     public function signout()
