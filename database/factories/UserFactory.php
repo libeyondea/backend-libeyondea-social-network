@@ -25,7 +25,7 @@ class UserFactory extends Factory
             'avatar' => $imageName,
             'user_name' => $this->faker->unique()->userName(),
             'email' => $this->faker->unique()->safeEmail(),
-            'password' => bcrypt(Str::random(6)),
+            'password' => bcrypt('password'),
         ];
     }
 

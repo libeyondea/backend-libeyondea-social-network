@@ -17,8 +17,8 @@ class PostFactory extends Factory
     {
         return [
             'user_id' => $this->faker->randomElement(User::pluck('id')),
-            'slug' => Str::random(33),
-            'content' => $this->faker->text(666)
+            'slug' => Str::random(66),
+            'content' => $this->faker->text(300)
         ];
     }
 }

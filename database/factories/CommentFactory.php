@@ -20,8 +20,8 @@ class CommentFactory extends Factory
         return [
             'user_id' => $this->faker->randomElement(User::pluck('id')),
             'post_id' => $this->faker->randomElement(Post::pluck('id')),
-            'slug' => Str::random(44),
-            'content' => $this->faker->text(333)
+            'slug' => Str::random(66),
+            'content' => $this->faker->text(200)
         ];
     }
 

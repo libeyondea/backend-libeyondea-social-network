@@ -14,14 +14,6 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
-            'first_name' => 'Thuc',
-            'last_name' => 'Nguyen',
-            'avatar' => 'libeyondea.png',
-            'user_name' => 'libeyondea',
-            'email' => 'libeyondea@gmail.com',
-            'password' => bcrypt('libeyondea')
-        ]);
         User::factory(10)->create();
     }
 }

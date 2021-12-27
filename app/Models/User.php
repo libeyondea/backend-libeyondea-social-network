@@ -58,7 +58,7 @@ class User extends Authenticatable
 
     public function getAvatarUrlAttribute()
     {
-        return config('app.img_url') . '/' . $this->avatar;
+        return $this->avatar ? config('app.img_url') . '/' . $this->avatar : config('app.url') . '/' . 'user.jpg';
     }
 
     public function getIsFollowingAttribute()
