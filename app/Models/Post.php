@@ -19,4 +19,19 @@ class Post extends Model
     {
         return $this->hasMany(Image::class, 'post_id', 'id');
     }
+
+    public function getIsLikedAttribute()
+    {
+        return !!$this->postLikes->where('user_id', auth()->user()->id)->first();
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'post_id', 'id');
+    }
+
+    public function postLikes()
+    {
+        return $this->hasMany(PostLike::class, 'post_id', 'id');
+    }
 }
