@@ -15,6 +15,9 @@ class FollowerController extends Controller
     public function follow($user_name)
     {
         $following = User::where('user_name', $user_name)->firstOrFail();
+        if ($following->id === auth()->user()->id) {
+            return $this->respondBadRequest('You cannot follow yourself');
+        }
         $followingCheck = Follower::where('user_id', $following->id)->where('follower_id', auth()->user()->id)->first();
         if (!$followingCheck) {
             $follower = new Follower();
