@@ -22,6 +22,9 @@ class UserResource extends JsonResource
             'avatar_url' => $this->avatar_url,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'total_posts' => $this->posts->count(),
+            'total_followers' => $this->followers->count(),
+            'total_following' => $this->following->count()
         ];
         if (auth()->user()->id === $this->id) {
             $data['email'] = $this->email;
