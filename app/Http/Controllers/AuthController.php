@@ -31,9 +31,9 @@ class AuthController extends Controller
         $tokenResult = auth()->user()->createToken('Personal Access Token');
 
         return $this->respondSuccess([
-            'access_token' => $tokenResult->plainTextToken,
-            'token_type' => 'Bearer',
-            'expires_at' => Carbon::parse($tokenResult->accessToken->created_at)->addMinutes(config('sanctum.expiration'))
+            'token' => $tokenResult->plainTextToken,
+            //'token_type' => 'Bearer',
+            //'expires_at' => Carbon::parse($tokenResult->accessToken->created_at)->addMinutes(config('sanctum.expiration'))
         ]);
     }
 
