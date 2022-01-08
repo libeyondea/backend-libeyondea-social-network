@@ -9,6 +9,7 @@ use App\Http\Resources\PostResource;
 use App\Models\Follower;
 use App\Models\Image;
 use App\Models\Post;
+use App\Models\User;
 use App\Traits\ApiResponser;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -105,5 +106,19 @@ class PostController extends Controller
         $post = Post::where('slug', $slug)->where('user_id', auth()->user()->id)->firstOrFail();
         $post->delete();
         return $this->respondSuccess($post);
+    }
+
+    /**
+     * Display list of posts of user.
+     *
+     * @param string $user_name
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function listByUser($user_name)
+    {
+        $posts = Post::where('user_id', User::where('user_name', $user_name)->firstOrFail()->id);
+        $postsCount = $posts->get()->count();
+        $posts = $posts->pagination();
+        return $this->respondSuccessWithPagination(new PostCollection($posts), $postsCount);
     }
 }
